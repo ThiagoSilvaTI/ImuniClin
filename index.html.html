@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Imuni Clin · Vacinas, Dermatologia e Estética</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(145deg, #F8F4EE 0%, #EFE3CC 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.6rem;
+            background-attachment: fixed;
+        }
+
+        .clin-card {
+            max-width: 540px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(4px);
+            border-radius: 40px 40px 30px 30px;
+            box-shadow: 0 20px 48px -16px rgba(103, 60, 22, 0.15),
+                        0 8px 24px -8px rgba(241, 201, 196, 0.10);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.50);
+            transition: box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .clin-card:hover {
+            box-shadow: 0 32px 64px -20px rgba(103, 60, 22, 0.20),
+                        0 8px 24px -8px rgba(241, 201, 196, 0.15);
+        }
+
+        .clin-header {
+            background: transparent;
+            padding: 1.8rem 1.8rem 0.8rem;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .clin-header::after {
+            content: '';
+            position: absolute;
+            top: -60%;
+            right: -20%;
+            width: 320px;
+            height: 320px;
+            background: rgba(241, 201, 196, 0.08);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .clin-header::before {
+            content: '';
+            position: absolute;
+            bottom: -40%;
+            left: -10%;
+            width: 220px;
+            height: 220px;
+            background: rgba(103, 60, 22, 0.03);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        /* ── LOGO – MAIOR ── */
+        .logo-symbol {
+            width: 220px;
+            height: 220px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: transparent;
+            margin-bottom: 0.8rem;
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .logo-symbol img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        .logo-fallback {
+            display: none;
+            width: 100%;
+            height: 100%;
+            align-items: center;
+            justify-content: center;
+            background: rgba(103, 60, 22, 0.04);
+            border-radius: 12px;
+            font-size: 3rem;
+            color: #673C16;
+        }
+        .logo-fallback i {
+            font-size: 4rem;
+            color: #673C16;
+        }
+
+        /* ── MASCOTE – SEM BORDA ── */
+        .mascot-area {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 0.2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .mascot-placeholder {
+            width: 160px;
+            height: 160px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s;
+            cursor: default;
+            flex-shrink: 0;
+        }
+
+        .mascot-placeholder:hover {
+            transform: scale(1.03);
+        }
+
+        .mascot-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        .mascot-fallback {
+            display: none;
+            width: 100%;
+            height: 100%;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background: rgba(241, 201, 196, 0.08);
+            border-radius: 12px;
+            color: #F1C9C4;
+        }
+        .mascot-fallback i {
+            font-size: 2.8rem;
+            color: #F1C9C4;
+        }
+        .mascot-fallback span {
+            font-size: 0.6rem;
+            font-weight: 600;
+            color: #673C16;
+            letter-spacing: 0.3px;
+            margin-top: 2px;
+        }
+
+        /* ── CORPO ── */
+        .clin-body {
+            padding: 1.8rem 1.8rem 2.5rem;
+            background: transparent;
+        }
+
+        .clin-body .subtitle {
+            font-size: 1rem;
+            color: #673C16;
+            text-align: center;
+            margin-bottom: 2rem;
+            letter-spacing: 0.2px;
+            font-weight: 500;
+        }
+
+        .clin-body .subtitle i {
+            color: #25D366;
+            margin: 0 4px;
+        }
+
+        .links-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.1rem;
+        }
+
+        .link-btn {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            background: rgba(255, 255, 255, 0.70);
+            backdrop-filter: blur(2px);
+            border-radius: 80px;
+            padding: 1rem 1.4rem 1rem 1.2rem;
+            border: 1px solid rgba(255, 255, 255, 0.50);
+            transition: all 0.25s ease;
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+        }
+
+        .link-btn:hover {
+            transform: translateX(6px);
+            border-color: #F1C9C4;
+            box-shadow: 0 8px 20px rgba(103, 60, 22, 0.10),
+                        0 4px 12px rgba(241, 201, 196, 0.12);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .btn-icon {
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .btn-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .link-btn.vacinas .btn-icon {
+            background: #F1C9C4;
+        }
+        .link-btn.estetica .btn-icon {
+            background: #673C16;
+        }
+        .link-btn.localizacao .btn-icon {
+            background: #EFE3CC;
+        }
+
+        .btn-icon .icon-fallback {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            font-size: 1.4rem;
+        }
+
+        .link-btn.vacinas .btn-icon .icon-fallback {
+            color: #673C16;
+        }
+        .link-btn.estetica .btn-icon .icon-fallback {
+            color: #FFFFFF;
+        }
+        .link-btn.localizacao .btn-icon .icon-fallback {
+            color: #673C16;
+        }
+
+        .link-btn .btn-text {
+            flex: 1;
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: #673C16;
+        }
+
+        .link-btn .btn-text small {
+            font-weight: 400;
+            font-size: 0.8rem;
+            color: #673C16;
+            opacity: 0.7;
+            display: block;
+            margin-top: 2px;
+        }
+
+        .link-btn .btn-arrow {
+            color: #b8aa9a;
+            font-size: 1.1rem;
+            transition: color 0.2s;
+        }
+
+        .link-btn:hover .btn-arrow {
+            color: #F1C9C4;
+        }
+
+        .clin-footer {
+            padding: 1rem 1.8rem 1.6rem;
+            border-top: 1px solid rgba(103, 60, 22, 0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            background: transparent;
+        }
+
+        .clin-footer .copy {
+            font-size: 0.8rem;
+            color: #673C16;
+            letter-spacing: 0.2px;
+            font-weight: 500;
+        }
+
+        .clin-footer .copy i {
+            color: #F1C9C4;
+            margin: 0 4px;
+        }
+
+        .clin-footer .copy a {
+            color: #673C16;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .clin-footer .copy a:hover {
+            color: #F1C9C4;
+        }
+
+        .clin-footer .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .clin-footer .social-links a {
+            color: #673C16;
+            font-size: 1.1rem;
+            transition: color 0.2s;
+        }
+
+        .clin-footer .social-links a:hover {
+            color: #F1C9C4;
+        }
+
+        .deco-image {
+            position: absolute;
+            bottom: 1.2rem;
+            right: 1.2rem;
+            width: 60px;
+            height: 60px;
+            opacity: 0.10;
+            pointer-events: none;
+            z-index: 0;
+            color: #F1C9C4;
+            font-size: 3.2rem;
+            transform: rotate(4deg);
+            transition: opacity 0.3s ease;
+        }
+
+        .clin-card:hover .deco-image {
+            opacity: 0.18;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 0.4rem;
+            }
+            .clin-card {
+                max-width: 100%;
+                border-radius: 28px;
+            }
+            .clin-header {
+                padding: 1.2rem 1.2rem 0.4rem;
+            }
+            .logo-symbol {
+                width: 170px;
+                height: 170px;
+            }
+            .mascot-placeholder {
+                width: 130px;
+                height: 130px;
+            }
+            .clin-body {
+                padding: 1.5rem 1.2rem 1.8rem;
+            }
+            .clin-body .subtitle {
+                font-size: 0.9rem;
+                margin-bottom: 1.5rem;
+            }
+            .link-btn {
+                padding: 0.85rem 1rem 0.85rem 0.9rem;
+                border-radius: 60px;
+                gap: 1rem;
+            }
+            .btn-icon {
+                width: 46px;
+                height: 46px;
+            }
+            .btn-icon .icon-fallback {
+                font-size: 1.2rem;
+            }
+            .link-btn .btn-text {
+                font-size: 1rem;
+            }
+            .link-btn .btn-text small {
+                font-size: 0.7rem;
+            }
+            .clin-footer {
+                padding: 0.8rem 1.2rem 1.2rem;
+                flex-direction: column;
+                text-align: center;
+            }
+            .clin-footer .social-links {
+                justify-content: center;
+            }
+            .deco-image {
+                width: 44px;
+                height: 44px;
+                font-size: 2.4rem;
+                bottom: 0.8rem;
+                right: 0.8rem;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .logo-symbol {
+                width: 140px;
+                height: 140px;
+            }
+            .mascot-placeholder {
+                width: 110px;
+                height: 110px;
+            }
+            .link-btn .btn-text {
+                font-size: 0.9rem;
+            }
+            .link-btn .btn-text small {
+                font-size: 0.65rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="clin-card">
+
+        <div class="deco-image">
+            <i class="fas fa-heartbeat"></i>
+        </div>
+
+        <header class="clin-header">
+            <!-- LOGO (maior) -->
+            <div class="logo-symbol">
+                <img src="https://www.image2url.com/r2/default/images/1788032312201-e1ba5273-f354-42fb-8447-981f80acaca7.png" alt="Imuni Clin Logo" 
+                     onerror="this.style.display='none'; document.getElementById('logoFallback').style.display='flex';" />
+                <div class="logo-fallback" id="logoFallback">
+                    <i class="fas fa-shield-virus"></i>
+                </div>
+            </div>
+
+            <!-- MASCOTE (sem borda) -->
+            <div class="mascot-area">
+                <div class="mascot-placeholder">
+                    <img src="https://www.image2url.com/r2/default/images/1788113111456-6bf78240-84a3-442d-9f5e-0dd1b09decee.png" alt="Mascote Imuni Clin"
+                         onerror="this.style.display='none'; document.getElementById('mascotFallback').style.display='flex';" />
+                    <div class="mascot-fallback" id="mascotFallback">
+                        <i class="fas fa-paw"></i>
+                        <span>Mascote</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="clin-body">
+            <p class="subtitle">
+                <i class="fas fa-phone-alt" style="font-size:0.7rem;"></i>
+                Escolha o serviço e fale conosco
+                <i class="fab fa-whatsapp"></i>
+            </p>
+
+            <div class="links-list">
+
+                <!-- VACINAS -->
+                <a href="https://wa.me/5598988038956?text=Olá!%20Gostaria%20de%20informações%20sobre%20VACINAS." 
+                   target="_blank" class="link-btn vacinas">
+                    <span class="btn-icon">
+                        <img src="icone-vacinas.png" alt="Vacinas" 
+                             onerror="this.style.display='none'; this.parentElement.querySelector('.icon-fallback').style.display='flex';" />
+                        <span class="icon-fallback" style="display:none;">
+                            <i class="fas fa-syringe"></i>
+                        </span>
+                    </span>
+                    <span class="btn-text">
+                        Vacinas
+                        <small>Proteção e imunização completa</small>
+                    </span>
+                    <span class="btn-arrow"><i class="fas fa-chevron-right"></i></span>
+                </a>
+
+                <!-- ESTÉTICA -->
+                <a href="https://wa.me/5598988038956?text=Olá!%20Gostaria%20de%20informações%20sobre%20ESTÉTICA." 
+                   target="_blank" class="link-btn estetica">
+                    <span class="btn-icon">
+                        <img src="icone-estetica.png" alt="Estética" 
+                             onerror="this.style.display='none'; this.parentElement.querySelector('.icon-fallback').style.display='flex';" />
+                        <span class="icon-fallback" style="display:none;">
+                            <i class="fas fa-spa"></i>
+                        </span>
+                    </span>
+                    <span class="btn-text">
+                        Estética
+                        <small>Procedimentos que realçam sua beleza</small>
+                    </span>
+                    <span class="btn-arrow"><i class="fas fa-chevron-right"></i></span>
+                </a>
+
+                <!-- LOCALIZAÇÃO -->
+                <a href="https://www.google.com/maps/search/?api=1&query=Imuni+Clin+Clínica" 
+                   target="_blank" class="link-btn localizacao">
+                    <span class="btn-icon">
+                        <img src="icone-localizacao.png" alt="Localização" 
+                             onerror="this.style.display='none'; this.parentElement.querySelector('.icon-fallback').style.display='flex';" />
+                        <span class="icon-fallback" style="display:none;">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </span>
+                    </span>
+                    <span class="btn-text">
+                        Localização
+                        <small>Como chegar até nossa clínica</small>
+                    </span>
+                    <span class="btn-arrow"><i class="fas fa-chevron-right"></i></span>
+                </a>
+
+            </div>
+        </main>
+
+        <footer class="clin-footer">
+            <span class="copy">
+                <i class="fas fa-heart" style="color:#F1C9C4;"></i>
+                Junte-se a <a href="#">imuniclin_vacinas</a> no Linktree
+            </span>
+            <div class="social-links">
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+        </footer>
+
+    </div>
+
+</body>
+</html>
